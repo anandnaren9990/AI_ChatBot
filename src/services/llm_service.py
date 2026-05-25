@@ -17,7 +17,6 @@ async def llm_response(model, messages):
             response = await client.post(url=llm_pr.llm_chat_url, json=payload)
             response.raise_for_status()
             data = response.json()
-            logger.info(f"llm_output: {data}")
             llm_output = data["message"]["content"]
             if not llm_output and data.get("done_reason") == "load":
                 logger.info("Model was loaded by Ollama. Retrying chat request...")

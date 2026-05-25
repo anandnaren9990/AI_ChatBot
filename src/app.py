@@ -22,9 +22,7 @@ async def chat_with_llm(request: ChatRequest):
                 "content" : request.user_input
             }
         )
-        logger.info(conversation_history)
         messages = conversation_history[-10:]
-        logger.info(f"messages: {messages}")
         llm_output = await llm_response(model=model, messages=messages)
         conversation_history.append(
             {
@@ -32,7 +30,6 @@ async def chat_with_llm(request: ChatRequest):
                 "content" : llm_output
             }    
         )
-        logger.info(conversation_history)
         return {"response": llm_output}
     except Exception as e:
         logger.error(f"Error occured: {e}")
